@@ -1,128 +1,266 @@
-## **🧠 AR/VR Crime Scene Memory Distortion Simulator**
+<div align="center">
 
+# 🥽 AR/VR Crime Scene Memory Distortion Simulator
 
-An AI-powered AR/VR application designed to analyze how human memory can be distorted during crime scene observation using immersive environments and cognitive analysis.
-🚀 Overview
-This project simulates a 3D crime scene where users observe details and later answer recall questions. The system analyzes their responses to measure:
-* Memory Accuracy
-* Suggestibility (false memories)
-* Memory Stability
-It combines AR/VR, AI-based analysis, and backend systems to create a realistic and research-oriented experience.
-🎯 Problem Statement
-Human memory is not always reliable, especially in high-stress situations like crime scenes. Eyewitnesses may:
-* Forget details
-* Recall incorrect information
-* Be influenced by misleading cues
-This project aims to quantify and analyze memory distortion.
-💡 Solution
-We built an interactive system that:
-1. Displays a 3D crime scene (Unity)
-2. Allows users to explore using phone movement (gyroscope)
-3. Introduces a distraction task
-4. Collects recall responses
-5. Uses AI logic to analyze memory distortion
-6. Generates a Memory Stability Report
-🏗️ Tech Stack
-Frontend
-* Unity (AR/VR Simulation)
-* Gyroscope-based camera interaction
-Backend
-* FastAPI (Python)
-* MongoDB (Database)
-AI / Analysis
-* Rule-based memory analysis
-* Fuzzy matching & synonym detection
-* Confidence & response-time weighting
-⚙️ System Architecture
+### *Can you trust your own memory?*
+
+![Unity](https://img.shields.io/badge/Unity-AR%2FVR-black?style=for-the-badge&logo=unity&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-Python-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![AI](https://img.shields.io/badge/AI-Memory%20Analysis-blueviolet?style=for-the-badge&logo=openai&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
+
+<br/>
+
+> **An immersive AI-powered application that places you inside a 3D crime scene —**
+> **then scientifically measures how accurately your memory holds up.**
+
+<br/>
 
 ```
-Unity (Crime Scene)
-        ↓
-User Recall Responses
-        ↓
-FastAPI Backend
-        ↓
-MongoDB Database
-        ↓
-AI Analyzer
-        ↓
-Memory Stability Report
-        ↓
-Dashboard / Output
+ ██████╗██████╗ ██╗███╗   ███╗███████╗    ███████╗ ██████╗███████╗███╗   ██╗███████╗
+██╔════╝██╔══██╗██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔════╝████╗  ██║██╔════╝
+██║     ██████╔╝██║██╔████╔██║█████╗      ███████╗██║     █████╗  ██╔██╗ ██║█████╗  
+██║     ██╔══██╗██║██║╚██╔╝██║██╔══╝      ╚════██║██║     ██╔══╝  ██║╚██╗██║██╔══╝  
+╚██████╗██║  ██║██║██║ ╚═╝ ██║███████╗    ███████║╚██████╗███████╗██║ ╚████║███████╗
+ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝ ╚═════╝╚══════╝╚═╝  ╚═══╝╚══════╝
 ```
 
-🔄 Workflow
-1. User starts experiment
-2. Observes crime scene (25 seconds)
-3. Completes a distraction task
-4. Views modified scene
-5. Answers recall questions
-6. Backend analyzes responses
-7. System generates memory report
-📊 Key Metrics
-* Accuracy Score `correct answers / total questions`
-* Suggestibility Index `false memories / total questions`
-* Memory Stability
-   * Low
-   * Moderate
-   * High
-📁 Project Structure
+</div>
+
+---
+
+## 🧠 What Is This?
+
+Human memory is **not a recording** — it's a reconstruction. Under stress, people forget details, fabricate information, and are easily influenced by misleading cues.
+
+This project **quantifies that distortion** by placing users inside an immersive 3D crime scene and measuring three cognitive dimensions:
+
+| Metric | Formula | What It Means |
+|--------|---------|---------------|
+| 🎯 **Memory Accuracy** | `correct answers / total questions` | How much you actually remembered |
+| 🌀 **Suggestibility Index** | `false memories / total questions` | How easily your memory was influenced |
+| 🧩 **Memory Stability** | `Low · Moderate · High` | Overall reliability of your recall |
+
+---
+
+## 🚀 Demo Flow
 
 ```
-AR_CrimeScene_MemoryTest
-├── backend
-│   ├── api
-│   ├── ai
-│   ├── database
-│   ├── models
-│   └── main.py
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│   👁️  Observe Scene        🧩 Distraction Task                  │
+│   [ 25 seconds ]    ──►   [ cognitive load ]                   │
+│                                                                 │
+│   🔄 Modified Scene        📝 Recall Questions                  │
+│   [ altered details ] ──► [ answer under pressure ]            │
+│                                                                 │
+│   🤖 AI Analysis           📊 Memory Report                     │
+│   [ fuzzy match + NLP ] ─► [ accuracy · suggestibility ]       │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🏗️ System Architecture
+
+```
+                        ┌──────────────────────┐
+                        │   🎮  Unity Client    │
+                        │  (AR/VR Crime Scene)  │
+                        │  Gyroscope Navigation │
+                        └──────────┬───────────┘
+                                   │  HTTP / REST
+                        ┌──────────▼───────────┐
+                        │   ⚡  FastAPI Backend  │
+                        │   main.py  ·  api/    │
+                        └────┬──────────┬───────┘
+                             │          │
+               ┌─────────────▼──┐  ┌───▼──────────────┐
+               │ 🗄️  MongoDB    │  │  🤖  AI Analyser  │
+               │   (sessions,   │  │  fuzzy match      │
+               │    responses)  │  │  synonym detect   │
+               └────────────────┘  │  confidence wt.   │
+                                   └───────┬───────────┘
+                                           │
+                        ┌──────────────────▼───────────┐
+                        │   📊  Memory Stability Report │
+                        │   Accuracy · Suggestibility  │
+                        └──────────────────────────────┘
+```
+
+---
+
+## 💡 Features
+
+- 🥽 **Immersive AR/VR Crime Scene** — fully navigable 3D environment in Unity
+- 📱 **Gyroscope-based Camera** — explore the scene using phone movement
+- 🧩 **Distraction Task Engine** — induces natural memory interference
+- 🔄 **Scene Modification System** — introduces subtle suggestibility cues
+- 🤖 **AI Memory Analyser** — rule-based engine with fuzzy matching & synonym detection
+- ⏱️ **Response-time Weighting** — confidence scores factor in answer hesitation
+- 📊 **Automated Report Generation** — Memory Stability Report per session
+- 🗄️ **Persistent Storage** — MongoDB stores all sessions for research analysis
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+![Unity](https://img.shields.io/badge/Unity-000000?style=flat-square&logo=unity&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-239120?style=flat-square&logo=csharp&logoColor=white)
+
+- **Unity** — AR/VR 3D crime scene simulation
+- **Gyroscope API** — phone-based camera navigation
+
+### Backend
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)
+
+- **FastAPI** — high-performance REST API
+- **MongoDB** — session & response storage
+
+### AI / Analysis
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+
+- **Rule-based memory analysis engine**
+- **Fuzzy string matching** — handles typos & partial recalls
+- **Synonym detection** — semantically equivalent answers accepted
+- **Confidence + response-time weighting**
+
+---
+
+## 📁 Project Structure
+
+```
+AR_CrimeScene_MemoryTest/
 │
-├── Crime scene 1 (Unity)
-│   ├── Assets
-│   ├── Scenes
-│   └── Scripts
+├── 📂 backend/
+│   ├── api/              # Route handlers & endpoints
+│   ├── ai/               # Memory analysis engine
+│   ├── database/         # MongoDB connection & helpers
+│   ├── models/           # Pydantic data schemas
+│   └── main.py           # FastAPI entry point
 │
-├── dashboard (optional)
+├── 📂 CrimeScene1/       # Unity Project
+│   ├── Assets/
+│   ├── Scenes/
+│   └── Scripts/
+│
+├── 📂 dashboard/         # Optional visualisation layer
 └── README.md
 ```
 
-▶️ How to Run
-1. Setup Backend
+---
 
-```
-cd backend
+## ⚙️ Getting Started
+
+### Prerequisites
+
+- Python 3.9+
+- Unity 2022+
+- MongoDB (local or Atlas)
+
+### 1️⃣ Backend Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/AR_CrimeScene_MemoryTest.git
+cd AR_CrimeScene_MemoryTest/backend
+
+# Create virtual environment
 python -m venv .venv
+
+# Activate (Windows)
 .\.venv\Scripts\activate
+
+# Activate (macOS/Linux)
+source .venv/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
+
+# Start the server
 uvicorn main:app --reload
 ```
 
-Open:
+📡 API docs auto-generated at: `http://127.0.0.1:8000/docs`
+
+### 2️⃣ Unity Setup
 
 ```
-http://127.0.0.1:8000/docs
+1. Open Unity Hub → Add Project → select /CrimeScene1/
+2. Open the main crime scene in Scenes/
+3. In the API Config, set base URL → http://127.0.0.1:8000
+4. Press ▶ Play to start simulation
 ```
 
-2. Run Unity
-* Open project in Unity
-* Run the scene
-* Ensure API URL is connected to backend
-📌 Features
-* Immersive AR/VR crime scene simulation
-* Gyroscope-based navigation
-* AI-based memory distortion detection
-* Real-time performance optimization
-* End-to-end system (Frontend + Backend + AI)
-🔮 Future Improvements
-* Full AR integration using camera
-* Attention heatmaps (user focus tracking)
-* Machine learning-based prediction
-* Multi-user experiments
-* Advanced dashboard visualization
-👥 Team
-* Hima
-* Harini
-* Harshita
-* Chandana
-🏁 Conclusion
-This project demonstrates how AI + AR/VR can be used to study human cognitive behavior, especially in critical domains like crime investigation and forensic psychology.
+---
+
+## 🔬 How Memory Analysis Works
+
+```python
+# Simplified analysis pipeline
+def analyse_response(user_answer, correct_answer, response_time):
+    
+    # Step 1: Exact match
+    if user_answer == correct_answer:
+        return score(1.0)
+    
+    # Step 2: Fuzzy match (handles typos)
+    if fuzzy_ratio(user_answer, correct_answer) > 0.85:
+        return score(0.9)
+    
+    # Step 3: Synonym detection
+    if are_synonyms(user_answer, correct_answer):
+        return score(0.8)
+    
+    # Step 4: Apply response-time confidence weight
+    confidence = 1.0 - (response_time / MAX_TIME)
+    return score(0.0, confidence_penalty=confidence)
+```
+
+---
+
+## 🔮 Roadmap
+
+- [x] 3D crime scene with gyroscope navigation
+- [x] Distraction task & scene modification
+- [x] AI-based memory analysis engine
+- [x] Memory Stability Report generation
+- [ ] 📸 Full AR mode using live camera feed
+- [ ] 🔥 Attention heatmaps (gaze & focus tracking)
+- [ ] 🤖 ML-based prediction models (LSTM / transformer)
+- [ ] 👥 Multi-user concurrent experiment support
+- [ ] 📊 Advanced longitudinal dashboard
+
+---
+
+## 👥 Team
+
+| Member | Role |
+|--------|------|
+| 👩‍💻 **Hima** | AR/VR Development |
+| 👩‍💻 **Harini** | Backend & API |
+| 👩‍💻 **Harshita** | AI Analysis Engine |
+| 👩‍💻 **Chandana** | Database & Integration |
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+
+### 🧠 *"Memory is not what happened. It's what you think happened."*
+
+**Built with ❤️ using Unity · FastAPI · MongoDB · AI**
+
+⭐ Star this repo if you find it interesting!
+
+</div>
