@@ -1,4 +1,6 @@
-🧠 AR/VR Crime Scene Memory Distortion Simulator
+## **🧠 AR/VR Crime Scene Memory Distortion Simulator**
+
+
 An AI-powered AR/VR application designed to analyze how human memory can be distorted during crime scene observation using immersive environments and cognitive analysis.
 🚀 Overview
 This project simulates a 3D crime scene where users observe details and later answer recall questions. The system analyzes their responses to measure:
